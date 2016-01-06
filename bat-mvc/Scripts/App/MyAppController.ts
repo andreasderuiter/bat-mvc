@@ -12,22 +12,26 @@ module App {
         isVisibleErrorMessage: boolean = false;
         values: string[] = [];
 
-        static $inject: string[] = ["$http"];
-        constructor(private $http: ng.IHttpService) {
+        static $inject: string[] = ["$http", "$window"];
+        constructor(private $http: ng.IHttpService, private $window: ng.IWindowService) {
             this.getValues();
         }
 
-        private getValues(): string[] {
+        private getValues(): void {
             this.$http.get("/api/sample")
                 .then((response: ng.IHttpPromiseCallbackArg<string[]>) => {
                     this.isVisibleErrorMessage = false;
                     this.values = response.data;
                 })
                 .catch(((reason: ng.IHttpPromiseCallbackArg<string[]>) => {
-                    this.isVisibleErrorMessage = true;
-                    this.errorMessage = reason.statusText;
+                    if (reason.status == 401) {
+                        this.$window.location.href = '/Account/Login?returnurl=/Home/About';
+                    } else {
+                        this.isVisibleErrorMessage = true;
+                        this.errorMessage = reason.statusText;
+                    }
+                    return this.values;
                 }));
-            return this.values;
         }
     }
     angular.module("app").controller("MyAppController", MyAppController);

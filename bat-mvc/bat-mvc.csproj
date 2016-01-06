@@ -1051,6 +1051,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\App\app.ts" />
+    <TypeScriptCompile Include="Scripts\App\MyAppController.ts" />
     <TypeScriptCompile Include="Scripts\App\MyAppDirective.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />

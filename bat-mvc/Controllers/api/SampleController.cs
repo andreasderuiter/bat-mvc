@@ -7,6 +7,7 @@ using System.Web.Http;
 
 namespace bat_mvc.Controllers.api
 {
+    [Authorize]
     public class SampleController : ApiController
     {
         // GET api/<controller>
